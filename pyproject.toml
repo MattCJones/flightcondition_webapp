@@ -1,0 +1,22 @@
+
+[build-system]
+requires = ["setuptools", "setuptools-scm", "streamlit", "pandas",
+            "numpy", "flightcondition"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flightcondition_webpage"
+authors = [
+    {name = "Matthew C. Jones", email = "matt.c.jones.aoe@gmail.com"},
+]
+description = "My package description"
+readme = "README.md"
+version = "23.11.23"
+requires-python = ">=3.7"
+keywords = ["webapp", "aerospace", "engineering"]
+license = {file = "LICENSE"}
+classifiers = [
+    "Framework :: Streamlit",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = ["streamlit", "pandas", "numpy", "flightcondition"]
