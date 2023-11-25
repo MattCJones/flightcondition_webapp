@@ -1,0 +1,4 @@
+flightcondition==23.11.23
+numpy==1.24.3
+pandas==2.0.3
+streamlit==1.28.2
