@@ -9,7 +9,7 @@ Web application for
 
 Matthew C. Jones [matt.c.jones.aoe@gmail.com](matt.c.jones.aoe@gmail.com)
 
-## Installation
+## Installation (Local Server)
 
 ### Install Commands
 
@@ -24,7 +24,7 @@ and run:
 pip install <path/to/flightcondition_webapp>
 ```
 
-### Building Webpage
+### Building the Webpage
 Run the following,
 
 ```bash
