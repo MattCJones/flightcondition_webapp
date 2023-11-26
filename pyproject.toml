@@ -11,7 +11,7 @@ authors = [
 ]
 description = "My package description"
 readme = "README.md"
-version = "23.11.23"
+version = "23.11.25"
 requires-python = ">=3.7"
 keywords = ["webapp", "aerospace", "engineering"]
 license = {file = "LICENSE"}

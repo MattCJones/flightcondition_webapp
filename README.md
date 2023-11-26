@@ -2,6 +2,9 @@
 
 ## About
 
+See the web application here: [https://flightcondition.streamlit.app/](
+https://flightcondition.streamlit.app/)
+
 Web application for
 [flightcondition](https://github.com/MattCJones/flightcondition) package.
 
@@ -9,7 +12,9 @@ Web application for
 
 Matthew C. Jones [matt.c.jones.aoe@gmail.com](matt.c.jones.aoe@gmail.com)
 
-## Installation (Local Server)
+## Running Local Server
+These steps are only for running a local instance.  Otherwise use the website
+link provided above.
 
 ### Install Commands
 
