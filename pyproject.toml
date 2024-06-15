@@ -1,7 +1,7 @@
 
 [build-system]
-requires = ["setuptools", "setuptools-scm", "streamlit", "pandas",
-            "numpy", "flightcondition"]
+requires = ["setuptools", "setuptools-scm", "streamlit", "numpy",
+            "flightcondition"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -19,4 +19,4 @@ classifiers = [
     "Framework :: Streamlit",
     "Programming Language :: Python :: 3.11",
 ]
-dependencies = ["streamlit", "pandas", "numpy", "flightcondition"]
+dependencies = ["streamlit", "numpy", "flightcondition"]
