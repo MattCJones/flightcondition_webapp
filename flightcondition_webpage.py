@@ -10,8 +10,6 @@ Email: matt.c.jones.aoe@gmail.com
 
 # Import packages
 import streamlit as st
-import pandas as pd
-import numpy as np
 
 from flightcondition import FlightCondition, unit
 
@@ -21,8 +19,8 @@ from flightcondition import FlightCondition, unit
 # Initialize variables if no session sate
 if 'h' not in st.session_state:
     st.session_state['h'] = 0.0
-if 'altitude_unit' not in st.session_state:
-    st.session_state['altitude_unit'] = 'kft'
+# if 'altitude_unit' not in st.session_state:  # @DELETE
+#     st.session_state['altitude_unit'] = 'kft'
 
 # Initialize unit selections
 altitude_units = ("kft", "ft", "km", "m")
@@ -34,7 +32,7 @@ nu_units = ("ft^2/s", "m^2/s")
 k_units = ("ft slug/s^3/degR", "m kg/s^3/degK")
 acceleration_units = ("ft/s^2", "m/s^2")
 
-airspeed_units = ("knots", "ft/s", "m/s")
+airspeed_units = ("knots", "ft/s", "m/s", "km/s")
 bylength_units = ("1/ft", "1/in", "1/m", "1/mm")
 
 length_units = ("ft", "in", "m", "mm")
@@ -75,10 +73,37 @@ st.divider()
 
 
 # --------------------------------------
+# Model Settings
+# --------------------------------------
+# model_settings = st.checkbox("Model Settings", value=False,
+#                              help="Edit model settings",)
+# if model_settings:
+# else:
+#     text_output = False
+#     full_output = True
+#     units = "US"
+
+# st.markdown("**Model Settings**")
+col1, col2, col3 = st.columns(3)
+with col1:
+    text_output = st.checkbox("Text Output", value=False,
+                            help="Print text-formatted output",)
+with col2:
+    full_output = st.checkbox("Full Output", value=True,
+                            help="Print full set of quantities",)
+with col3:
+    # units = st.selectbox("Unit System", ("US", "SI"))
+    units = st.radio("Unit System", ["US", "SI"], horizontal=True,
+                    label_visibility="visible", index=1)
+
+st.session_state['altitude_unit'] = 'kft' if units == "US" else "km"
+st.session_state['airspeed_unit'] = 'knots' if units == "US" else "m/s"
+st.session_state['length_unit'] = 'ft' if units == "US" else "m"
+
+# --------------------------------------
 # Altitude Input
 # --------------------------------------
 st.header("Input Flight Condition")
-# st.subheader("Input Flight Condition")
 col1, col2, col3 = st.columns(3)
 with col1:
     st.selectbox(
@@ -91,7 +116,7 @@ with col2:
     if (st.session_state['altitude_type'] == "Geometric altitude"
        or st.session_state['altitude_type'] == "Geopotential altitude"):
         st.number_input(
-            label="Value", min_value=0.0, format='%01.8g', step=0.1, key='h',
+            label="Value", min_value=0.0, format='%01.8g', step=1.0, key='h',
         )
     elif st.session_state['altitude_type'] == "Pressure altitude":
         st.number_input(
@@ -103,8 +128,7 @@ with col3:
        or st.session_state['altitude_type'] == "Geopotential altitude"):
         st.selectbox("Unit", altitude_units, key='altitude_unit')
     elif st.session_state['altitude_type'] == "Pressure altitude":
-        st.selectbox("Unit", pressure_units,
-                     key='altitude_unit')
+        st.selectbox("Unit", pressure_units, key='altitude_unit')
 
 # --------------------------------------
 # Airspeed Input
@@ -208,20 +232,8 @@ elif st.session_state['length_type'] == "Reynolds Number":
     kwargs["Re"] = st.session_state['length']
 
 fc = FlightCondition(**kwargs)
-
-col1, col2, col3 = st.columns(3)
-with col1:
-    text_output = st.checkbox("Text Output", value=False,
-                              help="Print text-formatted output",)
-with col2:
-    full_output = st.checkbox("Full Output", value=True,
-                              help="Print full set of quantities",)
-    fc.full_output = full_output
-with col3:
-    # units = st.selectbox("Unit System", ("US", "SI"))
-    units = st.radio("Unit System", ["US", "SI"], horizontal=True,
-                     label_visibility="visible")
-    fc.units = units
+fc.full_output = full_output
+fc.units = units
 
 if text_output:
     st.text(fc.tostring())
