@@ -85,18 +85,27 @@ st.divider()
 col1, col2, col3 = st.columns(3)
 with col1:
     text_output = st.checkbox("Text Output", value=False,
-                            help="Print text-formatted output",)
+                              help="Print text-formatted output",)
 with col2:
     full_output = st.checkbox("Full Output", value=True,
-                            help="Print full set of quantities",)
+                              help="Print full set of quantities",)
+
+def update_input_units():
+    # This will change the input unit type if the user hit's the radio button
+    # to change from US to SI
+
+    units_ = st.session_state.unit_radio
+
+    # Update units
+    st.session_state['altitude_unit'] = 'kft' if units_ == "US" else "km"
+    st.session_state['airspeed_unit'] = 'knots' if units_ == "US" else "m/s"
+    st.session_state['length_unit'] = 'ft' if units_ == "US" else "m"
+
 with col3:
     # units = st.selectbox("Unit System", ("US", "SI"))
     units = st.radio("Unit System", ["US", "SI"], horizontal=True,
-                    label_visibility="visible", index=1)
-
-st.session_state['altitude_unit'] = 'kft' if units == "US" else "km"
-st.session_state['airspeed_unit'] = 'knots' if units == "US" else "m/s"
-st.session_state['length_unit'] = 'ft' if units == "US" else "m"
+                     label_visibility="visible", index=0, key="unit_radio",
+                     on_change=update_input_units)
 
 # --------------------------------------
 # Altitude Input
