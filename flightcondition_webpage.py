@@ -19,8 +19,6 @@ from flightcondition import FlightCondition, unit
 # Initialize variables if no session sate
 if 'h' not in st.session_state:
     st.session_state['h'] = 0.0
-# if 'altitude_unit' not in st.session_state:  # @DELETE
-#     st.session_state['altitude_unit'] = 'kft'
 
 # Initialize unit selections
 altitude_units = ("kft", "ft", "km", "m")
